@@ -6,6 +6,7 @@ public:
 
         if(nums.size()==0)
         return ans;
+        
         int a=nums[0];
         for(int i=0; i<nums.size(); i++)
         {
@@ -16,8 +17,9 @@ public:
                 else
                 ans.push_back(to_string(a)+"->"+to_string(nums[i]));
 
-                if(i!=nums.size()-1)
+                if(i<nums.size()-1)
                 a=nums[i+1];
+               
             }
         }
         return ans;
