@@ -1,45 +1,45 @@
 class Solution {
 public:
-
-    bool check(int src, vector<vector<int>>& graph, vector <int> &vis, vector <int> &pathvis, vector <int> &safe)
+    vector<int> eventualSafeNodes(vector<vector<int>>& adj) 
     {
-        vis[src]=1;
-        pathvis[src]=1;
-        safe[src]=0;
+        int n=adj.size();
+        vector <int> topo;
+        vector <int> indegree(n, 0);
+        queue <int> q;
 
-        for(auto it: graph[src])
+        vector<vector<int>> adjRev(n);
+        for(int i=0; i<n; i++)
         {
-            if(vis[it] == 0)
+            for(auto it: adj[i])
             {
-                if(check(it, graph, vis, pathvis, safe)==true)
-                return true;
-            }
-            else if(pathvis[it]==1)
-            return true;
+                adjRev[it].push_back(i);
+                indegree[i]++;
+            }        
         }
 
-        safe[src]=1;
-        pathvis[src]=0;
-        return false;
-    }
-    vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
-        vector <int> vis(graph.size(), 0);
-        vector <int> pathvis(graph.size(), 0);
-        vector <int> safe(graph.size(), 0);
-        vector <int> ans;
-        for(int i=0; i<graph.size(); i++)
+        for(int i=0; i<n; i++)
         {
-            if(vis[i]==0)
+            if(indegree[i]==0)
+            q.push(i);
+        }
+
+
+        while(!q.empty())
+        {
+            int node=q.front();
+            q.pop();
+
+            topo.push_back(node);
+
+            for(auto it: adjRev[node])
             {
-                check(i, graph, vis, pathvis, safe);
+                indegree[it]--;
+
+                if(indegree[it]==0)
+                q.push(it);
             }
         }
-
-        for(int i=0; i<graph.size(); i++)
-        {
-            if(safe[i]==1)
-            ans.push_back(i);
-        }
-        return ans;
+        sort(topo.begin(), topo.end());
+        return topo;
     }
 };
