@@ -40,7 +40,7 @@ public:
 
                     ans.push_back(temp->val);
 
-                    while (!st.empty() && temp == st.top()->right) 
+                    while (!st.empty() && temp == st.top()->right) //to go back in the tree
                     {
                         temp = st.top();
                         st.pop();
