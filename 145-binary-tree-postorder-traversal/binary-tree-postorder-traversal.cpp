@@ -10,32 +10,47 @@
  * };
  */
 
- //LRN -> NRL -> NLR
+ //LRN
 class Solution {
 public:
     vector<int> postorderTraversal(TreeNode* root) {
-        vector <int> ans;
         stack <TreeNode*> st;
-
-        if(root!=NULL)
-        st.push(root);
-
-        while(!st.empty())
+        vector <int> ans;
+        TreeNode* cur=root;
+        while(true)
         {
-            auto temp=st.top();
-            st.pop();
-            
-            ans.push_back(temp->val);
+            if(cur!=NULL)
+            {
+                st.push(cur);
+                cur=cur->left;
+            }
+            else
+            {
 
-            if(temp->left)
-            st.push(temp->left);
+                if(st.empty())
+                break;
 
-            if(temp->right)
-            st.push(temp->right);
+                auto temp=st.top();
+
+                if(temp->right != NULL)
+                cur=temp->right;
+                else
+                {
+                    st.pop();
+
+                    ans.push_back(temp->val);
+
+                    while (!st.empty() && temp == st.top()->right) 
+                    {
+                        temp = st.top();
+                        st.pop();
+                        ans.push_back(temp->val);
+                    }
+                }
+
+                
+            }
         }
-
-        reverse(ans.begin(), ans.end());
         return ans;
-
     }
 };
