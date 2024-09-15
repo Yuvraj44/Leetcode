@@ -9,24 +9,33 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+ //LRN -> NRL -> NLR
 class Solution {
 public:
-
-void postorder(TreeNode* root, vector <int> &ans)
-    {
-        if(root==NULL)
-        return;
-
-        
-        postorder(root->left, ans);
-        postorder(root->right, ans);
-        ans.push_back(root->val);
-    }
-
-    
     vector<int> postorderTraversal(TreeNode* root) {
         vector <int> ans;
-        postorder(root, ans);
+        stack <TreeNode*> st;
+
+        if(root!=NULL)
+        st.push(root);
+
+        while(!st.empty())
+        {
+            auto temp=st.top();
+            st.pop();
+            
+            ans.push_back(temp->val);
+
+            if(temp->left)
+            st.push(temp->left);
+
+            if(temp->right)
+            st.push(temp->right);
+        }
+
+        reverse(ans.begin(), ans.end());
         return ans;
+
     }
 };
