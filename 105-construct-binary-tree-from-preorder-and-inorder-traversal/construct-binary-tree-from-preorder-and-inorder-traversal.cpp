@@ -26,7 +26,7 @@ public:
                         int left_size= rootInd - is;
 
                         root->left=func(preorder, ps+1, ps+left_size,
-                                        inorder, is, rootInd-1,
+                                        inorder, is, is+left_size,
                                         m);
 
                         root->right=func(preorder, ps+left_size+1, pe,
