@@ -29,9 +29,10 @@ public:
                         if(isValid(board, i, j, c))
                         {
                             board[i][j]=c;
+                            
                             if(func(board)==true)
                             return true;
-                            else
+                            
                             board[i][j]='.';
                         }
                     }
