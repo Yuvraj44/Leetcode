@@ -35,6 +35,8 @@ public:
         }
         pre->next=prev;
         start->next=cur;
-        return temp->next;
+    ListNode* ans=temp->next;
+    delete(temp);
+        return ans;
     }
 };
