@@ -7,7 +7,7 @@ public:
         return ans;
     }
 
-    void func(int ind, vector <int> nums,   vector <int> v ,vector <vector <int>> &ans)
+    void func(int ind, vector <int> &nums,   vector <int> &v ,vector <vector <int>> &ans)
     {
         if(ind==nums.size())
         {
